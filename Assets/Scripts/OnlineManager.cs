@@ -10,9 +10,18 @@ public class OnlineManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Scene Switched");
         netManager = FindObjectOfType<NetworkManager>();
 
-        Debug.Log("Scene Switched");
+#if !UNITY_ANDROID || UNITY_EDITOR
+        Tango.TangoApplication tangoManager = FindObjectOfType<Tango.TangoApplication>();
+        DestroyImmediate(tangoManager.gameObject.GetComponent<RelocalizingOverlay>().m_relocalizationOverlay);
+        DestroyImmediate(tangoManager.gameObject);
+        DestroyImmediate(GetComponent<OnlineADFManager>());
+        DestroyImmediate(FindObjectOfType<TangoPoseController>().gameObject);
+#else
+        DestroyImmediate(GameObject.Find("Main Camera"));
+#endif
     }
 
     private void Start()

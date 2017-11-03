@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerPOC", "MultiplayerPOC.csproj", "{343ACEA1-8C1C-2F37-0864-F166486AB46E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplayerPOC.Editor", "MultiplayerPOC.Editor.csproj", "{A44C3194-C2CF-9079-F657-B5A7AA541C6E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{343ACEA1-8C1C-2F37-0864-F166486AB46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{343ACEA1-8C1C-2F37-0864-F166486AB46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{343ACEA1-8C1C-2F37-0864-F166486AB46E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A44C3194-C2CF-9079-F657-B5A7AA541C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A44C3194-C2CF-9079-F657-B5A7AA541C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A44C3194-C2CF-9079-F657-B5A7AA541C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A44C3194-C2CF-9079-F657-B5A7AA541C6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

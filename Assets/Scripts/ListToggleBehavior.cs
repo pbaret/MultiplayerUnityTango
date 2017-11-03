@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using Tango;
+using Tango;
 
 public class ListToggleBehavior : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class ListToggleBehavior : MonoBehaviour
     public bool isSession;
     public bool isADF;
 
-    //public AreaDescription adf;
+    public AreaDescription adf;
     public string networkAdress;
     public int networkPort;
 

@@ -12,7 +12,7 @@ public class OfflineManager : MonoBehaviour
     [Tooltip("Prefab for list elements")]
     public GameObject listTogglePrefab;
 
-    [Tooltip("Prefab for list elements")]
+    [Tooltip("Input field to provide manual connection fonctionnality (user enters IP by hand)")]
     public InputField ipInputField;
 
     public GameObject sessionsListContent;
@@ -27,6 +27,11 @@ public class OfflineManager : MonoBehaviour
     {        
         netDiscovery = FindObjectOfType<NetworkDiscovery>();
         netManager = FindObjectOfType<NetworkManager>();
+
+#if !UNITY_ANDROID || UNITY_EDITOR
+        DestroyImmediate(FindObjectOfType<Tango.TangoApplication>().gameObject);
+        DestroyImmediate(GetComponent<OfflineADFManager>());
+#endif
     }
     
     private void Start()
@@ -54,10 +59,10 @@ public class OfflineManager : MonoBehaviour
         }
     }
 
-    #endregion
+#endregion
 
 
-    #region UI MANAGEMENT
+#region UI MANAGEMENT
 
     public void AddSession(string ipAddress, int port)
     {
@@ -93,15 +98,28 @@ public class OfflineManager : MonoBehaviour
         DestroyImmediate(trash);
     }
 
-    #endregion
+#endregion
 
 
-    #region NETWORK CONNECTION MANAGEMENT
+#region NETWORK CONNECTION MANAGEMENT
     
     public void HostClicked()
     {
-        // Start the Server
-        netManager.StartHost();
+        bool startHost = false;
+
+#if !UNITY_ANDROID || UNITY_EDITOR
+        GlobalData.isTango = false;
+        startHost = true;
+#else
+        GlobalData.isTango = true;
+        startHost = GetComponent<OfflineADFManager>().SetupTangoSession();
+#endif
+
+        // Start the Server if everything's OK
+        if (startHost)
+            netManager.StartHost();
+        else
+            Debug.Log("NetworkManager.HostClicked : startHost is false");
     }
 
     public void JoinSession()
@@ -120,8 +138,12 @@ public class OfflineManager : MonoBehaviour
             netManager.networkAddress = ltb.networkAdress;
             //netManager.networkPort = ltb.networkPort;
 
-            Debug.Log("Try connect to: " + netManager.networkAddress + ":" + netManager.networkPort);            
-            
+            Debug.Log("Try connect to: " + netManager.networkAddress + ":" + netManager.networkPort);
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            GlobalData.isTango = true;
+#endif
+
             // Connect
             netManager.StartClient();
         }
@@ -137,5 +159,5 @@ public class OfflineManager : MonoBehaviour
         netManager.StartClient();
     }
 
-    #endregion
+#endregion
 }
